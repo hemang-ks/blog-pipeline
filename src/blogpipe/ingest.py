@@ -101,6 +101,11 @@ def _ingest_one(
     fetched = datetime.now(UTC).date().isoformat()
     title = result.title or origin
 
+    if result.reason:
+        combined_note = f"{note} — {result.reason}" if note else result.reason
+    else:
+        combined_note = note
+
     entry = SourceEntry(
         id=source_id,
         type=kind,
@@ -109,7 +114,7 @@ def _ingest_one(
         fetched=fetched,
         words=result.words,
         status=result.status,
-        note=note or (result.reason or ""),
+        note=combined_note,
     )
     upsert(entries, entry)
 
