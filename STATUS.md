@@ -6,15 +6,15 @@ Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE do
 
 ## Resume Here
 - Last session: 2026-10-01 · machine: <name> · branch: m0-setup
-- Last completed: M0.1, M0.2, M0.4
-- Next action: M0.3 — put `style/writing-rules.md` and `style/about-me.md` in place (root `writing-rules.md` still needs to move into `style/`; `about-me.md` not yet added)
+- Last completed: M0.1, M0.2, M0.3, M0.4
+- Next action: Hemang to merge PR #1, then kick off M1 (`M1.4` inputs for G1)
 - Open questions for Me: G1 and G2 topics (see PLAYBOOK §8)
 - Uncommitted/WIP: PR #1 (m0-setup) open, not yet merged
 
 ## Modules
 | Module | Status | Criteria met | Commit | Notes |
 |--------|--------|--------------|--------|-------|
-| M0 Setup | in-progress | 4/6 | — | |
+| M0 Setup | in-progress | 6/6 | — | |
 | M1 Ingest | todo | 0/5 | — | |
 | M2 Style System | todo | 0/7 | — | |
 | M3 Research + Brief | todo | 0/5 | — | |
@@ -25,14 +25,14 @@ Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE do
 ## M0 — Setup
 - [x] M0.1 Create private repo, clone, add PLAYBOOK.md · Owner: Me · Status: done · Evidence: repo `hemang-ks/blog-pipeline`, `PLAYBOOK.md` committed to main (commit `4468338`)
 - [x] M0.2 Scaffold project, CLI stub, CI, CLAUDE.md, settings, machine-setup · Owner: Claude Code · Status: done · Evidence: `uv run blog --version` → `0.1.0`; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 1 passed, 90.91% coverage; `uv run ruff check .` → All checks passed!; `uv run ruff format --check .` → 10 files already formatted. PR: https://github.com/hemang-ks/blog-pipeline/pull/1 (CI: pass)
-- [ ] M0.3 Copy writing-rules.md and about-me.md into style/ · Owner: Me · Status: todo · Evidence: NOT YET SATISFIED — `style/writing-rules.md` and `style/about-me.md` don't exist. A `writing-rules.md` sits untracked at repo root (not in `style/`), and no `about-me.md` exists anywhere in the repo.
+- [x] M0.3 Copy writing-rules.md and about-me.md into style/ · Owner: Me · Status: done · Evidence: `style/writing-rules.md` (135 lines) and `style/about-me.md` (139 lines) present and committed (commit `06161bb`)
 - [x] M0.4 Run verify command; confirm CI green · Owner: Me · Status: done · Evidence: Hemang ran `uv sync && uv run blog --version && uv run pytest -q && uv run ruff check .` and confirmed it passed; PR #1 CI green
 Success criteria:
 - [x] `uv run blog --version` prints 0.1.0
 - [x] `uv run pytest -q` passes
 - [x] `uv run ruff check .` clean
 - [x] CI green on main
-- [ ] style/writing-rules.md and style/about-me.md committed
+- [x] style/writing-rules.md and style/about-me.md committed
 - [x] docs/machine-setup.md verify command passes on this machine
 
 ## M1 — Ingest
