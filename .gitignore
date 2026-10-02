@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# uv / venv
+.venv/
+.python-version
+
+# macOS
+.DS_Store
+
+# Style (never commit)
+style/confidential.yaml
+
+# Test / coverage
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# Large PDFs (>20 MB): add their exact paths here; they stay local
+# (gitignore can't filter by size, so list files individually, e.g.)
+# topics/<slug>/inputs/files/some-huge-report.pdf
