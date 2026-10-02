@@ -24,7 +24,7 @@ Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE do
 
 ## M0 — Setup
 - [ ] M0.1 Create private repo, clone, add PLAYBOOK.md · Owner: Me · Status: todo · Evidence:
-- [x] M0.2 Scaffold project, CLI stub, CI, CLAUDE.md, settings, machine-setup · Owner: Claude Code · Status: done · Evidence: `uv run blog --version` → `0.1.0`; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 1 passed, 90.91% coverage; `uv run ruff check .` → All checks passed!; `uv run ruff format --check .` → 10 files already formatted. PR: (added after push)
+- [x] M0.2 Scaffold project, CLI stub, CI, CLAUDE.md, settings, machine-setup · Owner: Claude Code · Status: done · Evidence: `uv run blog --version` → `0.1.0`; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 1 passed, 90.91% coverage; `uv run ruff check .` → All checks passed!; `uv run ruff format --check .` → 10 files already formatted. PR: https://github.com/hemang-ks/blog-pipeline/pull/1
 - [ ] M0.3 Copy writing-rules.md and about-me.md into style/ · Owner: Me · Status: todo · Evidence:
 - [ ] M0.4 Run verify command; confirm CI green · Owner: Me · Status: todo · Evidence:
 Success criteria:
