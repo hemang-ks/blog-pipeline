@@ -1,21 +1,21 @@
 # Project Status — blog-pipeline
-Last updated: 2026-10-02 · by: Claude Code
-Current module: M1
+Last updated: 2026-10-02 · by: Me
+Current module: M2
 Status values: todo · in-progress · blocked · done · skipped
 Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE done, after verifying its success criteria.
 
 ## Resume Here
-- Last session: 2026-10-02 · machine: <name> · branch: m1-ingest
-- Last completed: M0 (all), M1.1, M1.2, M1.3, M1.4, M1.5 — all 5 M1 success criteria met
-- Next action: Me to verify M1 and mark the module done; then kick off M2 (exemplar URLs + notes, M2.1)
+- Last session: 2026-10-02 · machine: <name> · branch: main
+- Last completed: M0 (done), M1 (done)
+- Next action: M2.1 — Me to provide exemplar URLs + notes.md
 - Open questions for Me: G1 (done — llm-d-distributed-inference) and G2 topics (see PLAYBOOK §8)
-- Uncommitted/WIP: PR #3 (m1-ingest) open, not yet merged
+- Uncommitted/WIP: none
 
 ## Modules
 | Module | Status | Criteria met | Commit | Notes |
 |--------|--------|--------------|--------|-------|
-| M0 Setup | in-progress | 6/6 | — | |
-| M1 Ingest | in-progress | 5/5 | — | all tasks done; awaiting Me to verify and mark module done |
+| M0 Setup | done | 6/6 | d81510f | Merged PR #1, #2 |
+| M1 Ingest | done | 5/5 | 53a4ccc | Merged PR #3 |
 | M2 Style System | todo | 0/7 | — | |
 | M3 Research + Brief | todo | 0/5 | — | |
 | M4 Outline + Draft | todo | 0/4 | — | |
