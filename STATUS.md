@@ -6,8 +6,8 @@ Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE do
 
 ## Resume Here
 - Last session: 2026-10-02 · machine: <name> · branch: main
-- Last completed: M0 (done), M1 (done)
-- Next action: M2.1 — Me to provide exemplar URLs + notes.md
+- Last completed: M0 (done), M1 (done), M2.1, M2.2, M2.3, M2.4
+- Next action: M2.5 — positions interview (Claude Code, interactive via AskUserQuestion)
 - Open questions for Me: G1 (done — llm-d-distributed-inference) and G2 topics (see PLAYBOOK §8)
 - Uncommitted/WIP: none
 
@@ -16,7 +16,7 @@ Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE do
 |--------|--------|--------------|--------|-------|
 | M0 Setup | done | 6/6 | d81510f | Merged PR #1, #2 |
 | M1 Ingest | done | 5/5 | 53a4ccc | Merged PR #3 |
-| M2 Style System | todo | 0/7 | — | |
+| M2 Style System | in-progress | 3/7 | — | M2.1-M2.4 done; M2.5-M2.6 remain |
 | M3 Research + Brief | todo | 0/5 | — | |
 | M4 Outline + Draft | todo | 0/4 | — | |
 | M5 Edit, Fact-check, Export | todo | 0/7 | — | |
@@ -49,20 +49,20 @@ Success criteria:
 - [x] Me spot-checked 2 corpus files for extraction quality
 
 ## M2 — Style System
-- [ ] M2.1 Write exemplar urls.txt + notes.md · Owner: Me · Status: todo · Evidence:
+- [x] M2.1 Write exemplar urls.txt + notes.md · Owner: Me · Status: done · Evidence: `style/exemplars/inputs/urls.txt` (E1-E3), `style/exemplars/notes.md` with Observed lines (Claude) and What I like / Don't copy (Hemang) filled in for all three. Not a paid Pragmatic Engineer subscriber, so no E3 PDF — free portion used.
 - [x] M2.2 Ingest exemplars; report truncation/paywall · Owner: Claude Code · Status: done · Evidence: `uv run blog ingest style/exemplars` → ok=1 (E3, 3002 words) failed=2 (E1, E2 — Medium 403, confirmed via both httpx and a WebFetch retry, no further workaround per instructions). Also fixed an ingest.py bug found along the way: a failure's reason was silently dropped from sources.md's note column whenever the input line also had a user note (e.g. "E1 technical"); now both are recorded. 29 tests pass, 89.83% coverage. PR: https://github.com/hemang-ks/blog-pipeline/pull/4 (CI: pass)
 - [x] M2.3 Draft blog-craft.md (two modes) · Owner: Me + Claude Code · Status: done · Evidence: `style/blog-craft.md` drafted, 1259 words (limit 1800), approved by Hemang 2026-10-02.
-- [ ] M2.4 lint-rules.yaml + `blog lint` + calibration on exemplars · Owner: Me + Claude Code · Status: in-progress · Evidence: `style/lint-rules.yaml`, `src/blogpipe/lint.py`, `blog lint <file> [--mode] [--sources] [--report] [--no-length]`; `tests/test_lint.py` (45 tests: every rule's positive+negative sample, allow_contexts, code/frontmatter skipping, planted confidential term+pattern, exemplar overlap, source overlap quoted+marked exemption, bare/unresolved [ME], mode-length-is-soft, CLI exit code); full suite 74 passed, 93.03% coverage. Calibration: `style/exemplars/lint-calibration.md` (E3 only — E1/E2 have no corpus text). One real gap found: banned words inside a direct, attributed quote aren't exempted yet (recommendation in the calibration doc). Awaiting Hemang's review of the hard/soft split. PR: https://github.com/hemang-ks/blog-pipeline/pull/4 (CI: pass)
+- [x] M2.4 lint-rules.yaml + `blog lint` + calibration on exemplars · Owner: Me + Claude Code · Status: done · Evidence: hard/soft split approved by Hemang 2026-10-02. `style/lint-rules.yaml`, `src/blogpipe/lint.py`, `blog lint <file> [--mode] [--sources] [--report] [--no-length]`; `tests/test_lint.py` (45 tests: every rule's positive+negative sample, allow_contexts, code/frontmatter skipping, planted confidential term+pattern, exemplar overlap, source overlap quoted+marked exemption, bare/unresolved [ME], mode-length-is-soft, CLI exit code); full suite 74 passed, 93.03% coverage. Calibration: `style/exemplars/lint-calibration.md` (E3 only — E1/E2 have no corpus text). One real gap found: banned words inside a direct, attributed quote aren't exempted yet (recommendation in the calibration doc, not fixed — carried forward as a known gap). PR: https://github.com/hemang-ks/blog-pipeline/pull/4 (CI: pass)
 - [ ] M2.5 Positions interview → positions.md · Owner: Me + Claude Code · Status: todo · Evidence:
 - [ ] M2.6 Create confidential.yaml · Owner: Me · Status: todo · Evidence:
 Success criteria:
-- [ ] style/exemplars/corpus has E1–E3 (E3 marked partial or full)
-- [ ] blog-craft.md has an "Approved: <date>" line from Me
-- [ ] lint tests pass (hard, soft, allow-contexts, code-block skipping, confidential, exemplar overlap, source-corpus overlap, quoted-and-marked passage allowed)
-- [ ] Lint calibration report on exemplars reviewed by Me; hard/soft split approved
+- [ ] style/exemplars/corpus has E1–E3 (E3 marked partial or full) — **not met**: E1/E2 corpus missing (Medium 403, see M2.2); only E3 (ok, full-looking) present
+- [x] blog-craft.md has an "Approved: <date>" line from Me
+- [x] lint tests pass (hard, soft, allow-contexts, code-block skipping, confidential, exemplar overlap, source-corpus overlap, quoted-and-marked passage allowed)
+- [x] Lint calibration report on exemplars reviewed by Me; hard/soft split approved
 - [ ] positions.md has ≥6 positions and an "Approved: <date>" line
 - [ ] `git check-ignore style/confidential.yaml` prints the path
-- [ ] `blog lint` flags a planted confidential term (test)
+- [x] `blog lint` flags a planted confidential term (test)
 
 ## M3 — Research + Brief
 - [ ] M3.1 researcher subagent · Owner: Claude Code · Status: todo · Evidence:
