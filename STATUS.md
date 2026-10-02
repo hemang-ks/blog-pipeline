@@ -1,21 +1,21 @@
 # Project Status — blog-pipeline
-Last updated: 2026-10-01 · by: Claude Code
-Current module: M0
+Last updated: 2026-10-02 · by: Claude Code
+Current module: M1
 Status values: todo · in-progress · blocked · done · skipped
 Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE done, after verifying its success criteria.
 
 ## Resume Here
-- Last session: 2026-10-01 · machine: <name> · branch: m0-setup
-- Last completed: M0.1, M0.2, M0.3, M0.4
-- Next action: Hemang to merge PR #1, then kick off M1 (`M1.4` inputs for G1)
+- Last session: 2026-10-02 · machine: <name> · branch: m1-ingest
+- Last completed: M0 (all), M1.1, M1.2, M1.3
+- Next action: Me — M1.4: pick G1, run `uv run blog new <g1-slug>` (or ask Claude Code to), fill in `intake.md`, add 2–4 URLs to `inputs/urls.txt`, drop 1–2 PDFs/MD notes into `inputs/files/`
 - Open questions for Me: G1 and G2 topics (see PLAYBOOK §8)
-- Uncommitted/WIP: PR #1 (m0-setup) open, not yet merged
+- Uncommitted/WIP: PR #3 (m1-ingest) open, not yet merged
 
 ## Modules
 | Module | Status | Criteria met | Commit | Notes |
 |--------|--------|--------------|--------|-------|
 | M0 Setup | in-progress | 6/6 | — | |
-| M1 Ingest | todo | 0/5 | — | |
+| M1 Ingest | in-progress | 0/5 | — | code (M1.1–M1.3) done; blocked on Me for M1.4 |
 | M2 Style System | todo | 0/7 | — | |
 | M3 Research + Brief | todo | 0/5 | — | |
 | M4 Outline + Draft | todo | 0/4 | — | |
@@ -38,7 +38,7 @@ Success criteria:
 ## M1 — Ingest
 - [x] M1.1 `blog new`, `blog status`, `blog approve` (with fingerprint), `blog reset`, post.yaml model · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/post.py`, `src/blogpipe/cli.py`, `tests/test_post.py` (15 tests, all passing); `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 90.68% coverage; `uv run ruff check .` → All checks passed!
 - [x] M1.2 Extractors (URL/PDF/MD), ingest, sources.md registry · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/extract/{html,pdf,markdown}.py`, `src/blogpipe/registry.py`, `src/blogpipe/ingest.py`, `blog ingest <dir> [--force]` CLI command; end-to-end smoke test (`blog new` → `blog ingest` → `blog status`) confirmed stage auto-advances intake→ingested
-- [x] M1.3 Offline tests with fixtures · Owner: Claude Code · Status: done · Evidence: `tests/test_ingest.py` (12 tests, all offline via monkeypatched httpx + generated PDF), `tests/fixtures/{article.html,paywall.html,notes.md}`; full suite 27 passed; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 89.64% coverage; `uv run ruff check .` → All checks passed!
+- [x] M1.3 Offline tests with fixtures · Owner: Claude Code · Status: done · Evidence: `tests/test_ingest.py` (12 tests, all offline via monkeypatched httpx + generated PDF), `tests/fixtures/{article.html,paywall.html,notes.md}`; full suite 27 passed; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 89.64% coverage; `uv run ruff check .` → All checks passed! PR: https://github.com/hemang-ks/blog-pipeline/pull/3 (CI: pass)
 - [ ] M1.4 Provide G1 inputs + intake.md · Owner: Me · Status: todo · Evidence:
 - [ ] M1.5 Ingest G1, report failures; Me spot-checks corpus · Owner: Me + Claude Code · Status: todo · Evidence:
 Success criteria:
