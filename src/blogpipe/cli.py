@@ -6,6 +6,8 @@ import typer
 
 from blogpipe import __version__
 from blogpipe.ingest import ingest as run_ingest
+from blogpipe.lint import format_report
+from blogpipe.lint import lint_file as run_lint
 from blogpipe.post import APPROVAL_STAGE, STAGES, Post, load_post, save_post, topic_dir
 
 app = typer.Typer()
@@ -188,3 +190,25 @@ def ingest_cmd(directory: str, force: bool = typer.Option(False, "--force")) -> 
         f"\nok={summary.ok} partial={summary.partial} "
         f"failed={summary.failed} skipped={summary.skipped}"
     )
+
+
+@app.command("lint")
+def lint_cmd(
+    file: str,
+    mode: str = typer.Option(None, "--mode"),
+    sources: str = typer.Option(None, "--sources"),
+    report: str = typer.Option(None, "--report"),
+    no_length: bool = typer.Option(False, "--no-length"),
+) -> None:
+    path = Path(file)
+    sources_path = Path(sources) if sources else None
+    findings = run_lint(path, mode=mode, sources_path=sources_path, check_length=not no_length)
+
+    text = format_report(path, findings)
+    typer.echo(text)
+    if report:
+        Path(report).write_text(text)
+
+    hard_count = sum(1 for f in findings if f.severity == "hard")
+    if hard_count > 0:
+        raise typer.Exit(code=1)

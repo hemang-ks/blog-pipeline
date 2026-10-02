@@ -1,0 +1,11 @@
+# NEVER commit style/confidential.yaml. Only `blog lint` reads it; Claude Code is denied access.
+# Matching is case-insensitive, on word boundaries.
+names:            # clients, prospects, partners under NDA, and their abbreviations
+  - "Example Bank"
+  - "EXB"
+codenames:        # internal project or program names
+  - "Project Falcon"
+patterns:         # regex, for things like internal hostnames or ticket IDs
+  - "\\b[a-z]+-prod-[0-9]+\\b"
+people:           # names of client-side individuals
+  - "Jane Doe"
