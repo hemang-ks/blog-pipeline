@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How Shared Inference Clusters Actually Fail</title>
+<meta name="author" content="Jane Doe">
+<meta property="article:published_time" content="2026-01-15">
+</head>
+<body>
+<article>
+<h1>How Shared Inference Clusters Actually Fail</h1>
+<p>Most teams assume that a benchmark number on a vendor's slide will translate directly into
+production throughput. It rarely does, and the gap is almost never about the model itself.
+It is about everything surrounding the model: batching policy, scheduler fairness, and the
+assumptions a cluster operator made about how traffic would actually arrive.</p>
+
+<p>When we first stood up a shared inference cluster, our benchmark suite reported numbers
+that looked excellent in isolation. Every request was synthetic, every prompt length was
+identical, and every client waited patiently for its turn. None of that resembled the real
+traffic we saw a week later, when a dozen internal teams began routing production workloads
+through the same pool of GPUs.</p>
+
+<p>The first failure mode was head-of-line blocking. A handful of long-context requests
+could stall a queue of short, latency-sensitive calls behind them, because the scheduler had
+no concept of priority beyond arrival order. The fix was not a bigger cluster. It was a
+scheduler that understood the shape of the requests it was serving.</p>
+
+<p>The second failure mode was memory fragmentation under bursty load. KV cache allocation
+that looked fine at steady state fell apart the moment concurrency spiked, because the
+allocator was never tested against the kind of traffic pattern production actually produces.
+Synthetic benchmarks rarely reproduce this, because they rarely reproduce burstiness at all.</p>
+
+<p>The lesson generalizes beyond this one cluster. A benchmark number describes a benchmark.
+It does not describe your traffic, your tenants, or your failure modes. If you want a number
+that predicts production behavior, you have to build the benchmark out of your own traffic
+shape, not someone else's idealized one. That is the only way the number means anything at
+all when the pager goes off at two in the morning and everyone is asking why the dashboard
+disagrees with the slide from procurement.</p>
+</article>
+</body>
+</html>
