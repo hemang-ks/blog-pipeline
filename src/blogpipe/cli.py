@@ -1,9 +1,11 @@
 import hashlib
 from datetime import UTC, datetime
+from pathlib import Path
 
 import typer
 
 from blogpipe import __version__
+from blogpipe.ingest import ingest as run_ingest
 from blogpipe.post import APPROVAL_STAGE, STAGES, Post, load_post, save_post, topic_dir
 
 app = typer.Typer()
@@ -170,3 +172,19 @@ def reset(slug: str, stage: str) -> None:
 
     typer.echo(f"Reset {slug} to stage '{stage}'.")
     typer.echo(f"Cleared approvals: {', '.join(cleared)}" if cleared else "No approvals cleared.")
+
+
+@app.command("ingest")
+def ingest_cmd(directory: str, force: bool = typer.Option(False, "--force")) -> None:
+    summary = run_ingest(Path(directory), force=force)
+
+    typer.echo(f"{'ID':<5} {'status':<8} origin / reason")
+    for row in summary.rows:
+        typer.echo(f"{row['id']:<5} {row['status']:<8} {row['origin']}")
+        if row["reason"]:
+            typer.echo(f"      ↳ {row['reason']}")
+
+    typer.echo(
+        f"\nok={summary.ok} partial={summary.partial} "
+        f"failed={summary.failed} skipped={summary.skipped}"
+    )

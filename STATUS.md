@@ -37,8 +37,8 @@ Success criteria:
 
 ## M1 — Ingest
 - [x] M1.1 `blog new`, `blog status`, `blog approve` (with fingerprint), `blog reset`, post.yaml model · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/post.py`, `src/blogpipe/cli.py`, `tests/test_post.py` (15 tests, all passing); `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 90.68% coverage; `uv run ruff check .` → All checks passed!
-- [ ] M1.2 Extractors (URL/PDF/MD), ingest, sources.md registry · Owner: Claude Code · Status: todo · Evidence:
-- [ ] M1.3 Offline tests with fixtures · Owner: Claude Code · Status: todo · Evidence:
+- [x] M1.2 Extractors (URL/PDF/MD), ingest, sources.md registry · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/extract/{html,pdf,markdown}.py`, `src/blogpipe/registry.py`, `src/blogpipe/ingest.py`, `blog ingest <dir> [--force]` CLI command; end-to-end smoke test (`blog new` → `blog ingest` → `blog status`) confirmed stage auto-advances intake→ingested
+- [x] M1.3 Offline tests with fixtures · Owner: Claude Code · Status: done · Evidence: `tests/test_ingest.py` (12 tests, all offline via monkeypatched httpx + generated PDF), `tests/fixtures/{article.html,paywall.html,notes.md}`; full suite 27 passed; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 89.64% coverage; `uv run ruff check .` → All checks passed!
 - [ ] M1.4 Provide G1 inputs + intake.md · Owner: Me · Status: todo · Evidence:
 - [ ] M1.5 Ingest G1, report failures; Me spot-checks corpus · Owner: Me + Claude Code · Status: todo · Evidence:
 Success criteria:
