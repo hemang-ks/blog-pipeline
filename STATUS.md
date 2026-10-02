@@ -6,16 +6,16 @@ Rule: Claude Code may mark TASKS done (with evidence). Only Me marks a MODULE do
 
 ## Resume Here
 - Last session: 2026-10-02 · machine: <name> · branch: m1-ingest
-- Last completed: M0 (all), M1.1, M1.2, M1.3
-- Next action: Me — M1.4: pick G1, run `uv run blog new <g1-slug>` (or ask Claude Code to), fill in `intake.md`, add 2–4 URLs to `inputs/urls.txt`, drop 1–2 PDFs/MD notes into `inputs/files/`
-- Open questions for Me: G1 and G2 topics (see PLAYBOOK §8)
+- Last completed: M0 (all), M1.1, M1.2, M1.3, M1.4, M1.5 — all 5 M1 success criteria met
+- Next action: Me to verify M1 and mark the module done; then kick off M2 (exemplar URLs + notes, M2.1)
+- Open questions for Me: G1 (done — llm-d-distributed-inference) and G2 topics (see PLAYBOOK §8)
 - Uncommitted/WIP: PR #3 (m1-ingest) open, not yet merged
 
 ## Modules
 | Module | Status | Criteria met | Commit | Notes |
 |--------|--------|--------------|--------|-------|
 | M0 Setup | in-progress | 6/6 | — | |
-| M1 Ingest | in-progress | 0/5 | — | code (M1.1–M1.3) done; blocked on Me for M1.4 |
+| M1 Ingest | in-progress | 5/5 | — | all tasks done; awaiting Me to verify and mark module done |
 | M2 Style System | todo | 0/7 | — | |
 | M3 Research + Brief | todo | 0/5 | — | |
 | M4 Outline + Draft | todo | 0/4 | — | |
@@ -39,14 +39,14 @@ Success criteria:
 - [x] M1.1 `blog new`, `blog status`, `blog approve` (with fingerprint), `blog reset`, post.yaml model · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/post.py`, `src/blogpipe/cli.py`, `tests/test_post.py` (15 tests, all passing); `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 90.68% coverage; `uv run ruff check .` → All checks passed!
 - [x] M1.2 Extractors (URL/PDF/MD), ingest, sources.md registry · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/extract/{html,pdf,markdown}.py`, `src/blogpipe/registry.py`, `src/blogpipe/ingest.py`, `blog ingest <dir> [--force]` CLI command; end-to-end smoke test (`blog new` → `blog ingest` → `blog status`) confirmed stage auto-advances intake→ingested
 - [x] M1.3 Offline tests with fixtures · Owner: Claude Code · Status: done · Evidence: `tests/test_ingest.py` (12 tests, all offline via monkeypatched httpx + generated PDF), `tests/fixtures/{article.html,paywall.html,notes.md}`; full suite 27 passed; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 89.64% coverage; `uv run ruff check .` → All checks passed! PR: https://github.com/hemang-ks/blog-pipeline/pull/3 (CI: pass)
-- [ ] M1.4 Provide G1 inputs + intake.md · Owner: Me · Status: todo · Evidence:
-- [ ] M1.5 Ingest G1, report failures; Me spot-checks corpus · Owner: Me + Claude Code · Status: in-progress · Evidence: `uv run blog ingest topics/llm-d-distributed-inference` → ok=3 partial=1 failed=0 skipped=0 (S1 Red Hat ok, S2 llm-d.ai/docs partial — thin landing page, 147 words, not a bug, S3 Google Cloud ok, S4 Solo.io PDF ok but noisy — see report). Awaiting Hemang's spot-check confirmation.
+- [x] M1.4 Provide G1 inputs + intake.md · Owner: Me · Status: done · Evidence: `topics/llm-d-distributed-inference/` — `intake.md` filled in (mode: technical, audience, angle, must include/avoid), 3 URLs in `inputs/urls.txt`, 1 PDF in `inputs/files/` (later swapped for a URL per M1.5 spot-check)
+- [x] M1.5 Ingest G1, report failures; Me spot-checks corpus · Owner: Me + Claude Code · Status: done · Evidence: `uv run blog ingest topics/llm-d-distributed-inference` → ok=3 partial=1 failed=0 skipped=0; S1 Red Hat ok, S2 llm-d.ai/docs partial (thin landing page, 147 words, not a bug), S3 Google Cloud ok, S4 re-ingested from the Solo.io URL (https://www.solo.io/blog/llm-d-distributed-inference-serving-on-kubernetes) instead of the browser-printed PDF, which had nav/chat-widget text corrupting the article body. Re-ingest also surfaced and fixed a real registry bug: titles containing a literal `\|` (e.g. "Page Title \| Site Name") broke row parsing in `sources.md` and silently defeated dedup, producing duplicate S2–S5 rows. Fixed `_split_row` in `src/blogpipe/registry.py` to respect the `\|` escape; added regression tests. Confirmed stable re-run (`skipped=4`, no duplicates) and clean S4 extraction. Hemang confirmed the spot-check.
 Success criteria:
-- [ ] pytest passes, with ingest tests running offline
-- [ ] `blog new demo` creates the full topic skeleton
-- [ ] Re-running ingest keeps IDs stable, and editing an approved file makes its approval stale (tests prove both)
-- [ ] G1 corpus has one file per input; failures listed with reason in sources.md
-- [ ] Me spot-checked 2 corpus files for extraction quality
+- [x] pytest passes, with ingest tests running offline
+- [x] `blog new demo` creates the full topic skeleton
+- [x] Re-running ingest keeps IDs stable, and editing an approved file makes its approval stale (tests prove both)
+- [x] G1 corpus has one file per input; failures listed with reason in sources.md
+- [x] Me spot-checked 2 corpus files for extraction quality
 
 ## M2 — Style System
 - [ ] M2.1 Write exemplar urls.txt + notes.md · Owner: Me · Status: todo · Evidence:
