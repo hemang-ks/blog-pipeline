@@ -1,5 +1,6 @@
 # blog-craft.md
 _Last updated: 2026-10-02_
+Approved: 2026-10-02
 
 This extends [writing-rules.md](writing-rules.md). It doesn't repeat those rules — it covers what's specific to a blog post: structure, headlines, mode, and the techniques worth stealing from the exemplars.
 
