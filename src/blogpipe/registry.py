@@ -1,10 +1,18 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
 HEADER = "| ID | type | title | origin | fetched | words | status | note |\n"
 SEPARATOR = "|---|---|---|---|---|---|---|---|\n"
+
+_UNESCAPED_PIPE = re.compile(r"(?<!\\)\|")
+
+
+def _split_row(line: str) -> list[str]:
+    stripped = line.strip().removeprefix("|").removesuffix("|")
+    return [cell.strip().replace("\\|", "|") for cell in _UNESCAPED_PIPE.split(stripped)]
 
 
 @dataclass
@@ -31,7 +39,7 @@ def load_entries(sources_path: Path) -> list[SourceEntry]:
     for line in sources_path.read_text().splitlines():
         if not line.startswith("|") or line.startswith(("| ID", "|---")):
             continue
-        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        cells = _split_row(line)
         if len(cells) < 8:
             continue
         id_, type_, title, origin, fetched, words, status, note = cells[:8]

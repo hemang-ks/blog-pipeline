@@ -8,7 +8,7 @@ from blogpipe.extract.html import extract_from_html, extract_url
 from blogpipe.extract.markdown import extract_markdown
 from blogpipe.extract.pdf import extract_pdf
 from blogpipe.ingest import ingest
-from blogpipe.registry import load_entries
+from blogpipe.registry import SourceEntry, load_entries, save_entries
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -88,6 +88,30 @@ def test_markdown_extraction_keeps_frontmatter():
     assert result.published == "2026-01-20"
 
 
+# --- registry ----------------------------------------------------------
+
+
+def test_registry_round_trips_title_with_literal_pipe(tmp_path):
+    sources_path = tmp_path / "sources.md"
+    entries = [
+        SourceEntry(
+            id="S1",
+            type="html",
+            title="Page Title | Site Name",
+            origin="https://example.com/a",
+            fetched="2026-10-02",
+            words=100,
+            status="ok",
+        )
+    ]
+    save_entries(sources_path, entries)
+
+    loaded = load_entries(sources_path)
+    assert len(loaded) == 1
+    assert loaded[0].title == "Page Title | Site Name"
+    assert loaded[0].origin == "https://example.com/a"
+
+
 # --- ingest orchestration ----------------------------------------------
 
 
@@ -133,6 +157,34 @@ def test_ingest_ids_stable_across_reruns(topic):
     assert summary2.skipped == 3
 
     entries_after = {e.origin: e.id for e in load_entries(topic / "sources.md")}
+    assert entries_before == entries_after
+
+
+def test_ingest_stays_deduped_when_title_has_literal_pipe(tmp_path, monkeypatch):
+    html = (
+        """<html><head><title>Page Title | Site Name</title></head>
+    <body><article><p>"""
+        + ("word " * 320)
+        + """</p></article></body></html>"""
+    )
+
+    def fake_get(url, timeout=None, follow_redirects=None, headers=None):
+        request = httpx.Request("GET", url)
+        return httpx.Response(200, text=html, request=request)
+
+    monkeypatch.setattr(httpx, "get", fake_get)
+
+    tdir = tmp_path / "g1"
+    (tdir / "inputs" / "files").mkdir(parents=True)
+    (tdir / "inputs" / "urls.txt").write_text("https://example.com/piped\n")
+
+    ingest(tdir)
+    entries_before = {e.origin: e.id for e in load_entries(tdir / "sources.md")}
+
+    summary2 = ingest(tdir)
+    assert summary2.skipped == 1
+
+    entries_after = {e.origin: e.id for e in load_entries(tdir / "sources.md")}
     assert entries_before == entries_after
 
 
