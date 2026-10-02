@@ -50,7 +50,7 @@ Success criteria:
 
 ## M2 — Style System
 - [ ] M2.1 Write exemplar urls.txt + notes.md · Owner: Me · Status: todo · Evidence:
-- [ ] M2.2 Ingest exemplars; report truncation/paywall · Owner: Claude Code · Status: todo · Evidence:
+- [x] M2.2 Ingest exemplars; report truncation/paywall · Owner: Claude Code · Status: done · Evidence: `uv run blog ingest style/exemplars` → ok=1 (E3, 3002 words) failed=2 (E1, E2 — Medium 403, confirmed via both httpx and a WebFetch retry, no further workaround per instructions). Also fixed an ingest.py bug found along the way: a failure's reason was silently dropped from sources.md's note column whenever the input line also had a user note (e.g. "E1 technical"); now both are recorded. 29 tests pass, 89.83% coverage.
 - [ ] M2.3 Draft blog-craft.md (two modes) · Owner: Me + Claude Code · Status: todo · Evidence:
 - [ ] M2.4 lint-rules.yaml + `blog lint` + calibration on exemplars · Owner: Me + Claude Code · Status: todo · Evidence:
 - [ ] M2.5 Positions interview → positions.md · Owner: Me + Claude Code · Status: todo · Evidence:
