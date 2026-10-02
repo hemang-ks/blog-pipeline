@@ -1,0 +1,128 @@
+# Lint rules for blog-pipeline posts. Enforced by src/blogpipe/lint.py.
+# Rules live here, not in code. See PLAYBOOK.md §2 (gate rules) and §9.
+
+hard:
+  words:
+    - delve
+    - tapestry
+    - intricate
+    - intricacies
+    - multifaceted
+    - cutting-edge
+    - game-changing
+    - transformative
+    - leveraging
+    - utilize
+    - seamless
+    - seamlessly
+    - best-in-class
+    - boasts
+    - garner
+    - bolster
+    - underscore
+    - pivotal
+    - meticulous
+    - meticulously
+    - interplay
+    - vibrant
+    - enduring
+    - testament
+    - notably
+    - moreover
+    - furthermore
+    - indeed
+    - subsequently
+    - accordingly
+    - consequently
+  phrases:
+    - delve into
+    - in conclusion
+    - to summarize
+    - to sum up
+    - in summary
+    - it is worth noting that
+    - it's important to note that
+    - "overall,"
+    - "thus,"
+    - "additionally,"
+    - in today's fast-paced world
+    - in the ever-evolving landscape of
+    - unlock the potential of
+    - unleash the power of
+    - harness the power of
+    - embark on a journey
+    - it goes without saying
+  patterns:
+    - "not only .+? but also"
+
+soft:
+  words:
+    - key
+    - crucial
+    - robust
+    - landscape
+    - ecosystem
+    - nuance
+    - nuanced
+    - therefore
+    - comprehensive
+    - very
+    - really
+    - truly
+    - quite
+    - rather
+    - somewhat
+    - fascinating
+    - majestic
+    - captivating
+    - groundbreaking
+  phrases: []
+
+# Phrases where a soft word is fine. Matched as a substring around the hit;
+# if the context contains one of these, the soft word is not flagged.
+allow_contexts:
+  - api key
+  - kv cache key
+  - cache key
+  - key-value
+  - primary key
+  - foreign key
+  - key-based
+  - robust to
+
+structure:
+  max_paragraph_sentences: 4
+  same_length_run:
+    count: 3
+    tolerance_words: 3
+  bullet_line_ratio_max: 0.25
+  bold_per_300_words_max: 2
+  rule_of_three: true
+
+modes:
+  technical:
+    min_words: 1200
+    max_words: 2000
+  strategy:
+    min_words: 2000
+    max_words: 3500
+
+citations:
+  min_quote_words_hard: 6
+
+platform:
+  hard:
+    - mermaid_block
+    - footnote_syntax
+    - h1_after_first_line
+  soft:
+    - markdown_table
+
+exemplar_overlap:
+  min_shared_words: 12
+
+source_overlap:
+  min_shared_words: 12
+
+confidential:
+  path: style/confidential.yaml

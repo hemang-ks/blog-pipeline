@@ -216,6 +216,8 @@ def test_ingest_failure_recorded_without_aborting(topic, monkeypatch):
     failed_entry = next(e for e in entries if e.origin == "https://example.com/a")
     assert failed_entry.status == "failed"
     assert failed_entry.note
+    assert "boom" in failed_entry.note
+    assert "primary source" in failed_entry.note
 
 
 def test_ingest_w_sources_numbered_separately(topic):

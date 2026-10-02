@@ -1,0 +1,3 @@
+https://medium.com/@bijit211987/building-custom-agent-harness-with-jev-59a240bfc663 | E1 technical
+https://medium.com/@bijit211987/inside-jev-architecture-of-a-decision-model-a7b0fc659b74 | E2 technical
+https://newsletter.pragmaticengineer.com/p/shopify-native-mobile | E3 strategy (paywalled after section 3)
