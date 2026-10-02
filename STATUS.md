@@ -40,7 +40,7 @@ Success criteria:
 - [x] M1.2 Extractors (URL/PDF/MD), ingest, sources.md registry · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/extract/{html,pdf,markdown}.py`, `src/blogpipe/registry.py`, `src/blogpipe/ingest.py`, `blog ingest <dir> [--force]` CLI command; end-to-end smoke test (`blog new` → `blog ingest` → `blog status`) confirmed stage auto-advances intake→ingested
 - [x] M1.3 Offline tests with fixtures · Owner: Claude Code · Status: done · Evidence: `tests/test_ingest.py` (12 tests, all offline via monkeypatched httpx + generated PDF), `tests/fixtures/{article.html,paywall.html,notes.md}`; full suite 27 passed; `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 89.64% coverage; `uv run ruff check .` → All checks passed! PR: https://github.com/hemang-ks/blog-pipeline/pull/3 (CI: pass)
 - [ ] M1.4 Provide G1 inputs + intake.md · Owner: Me · Status: todo · Evidence:
-- [ ] M1.5 Ingest G1, report failures; Me spot-checks corpus · Owner: Me + Claude Code · Status: todo · Evidence:
+- [ ] M1.5 Ingest G1, report failures; Me spot-checks corpus · Owner: Me + Claude Code · Status: in-progress · Evidence: `uv run blog ingest topics/llm-d-distributed-inference` → ok=3 partial=1 failed=0 skipped=0 (S1 Red Hat ok, S2 llm-d.ai/docs partial — thin landing page, 147 words, not a bug, S3 Google Cloud ok, S4 Solo.io PDF ok but noisy — see report). Awaiting Hemang's spot-check confirmation.
 Success criteria:
 - [ ] pytest passes, with ingest tests running offline
 - [ ] `blog new demo` creates the full topic skeleton
