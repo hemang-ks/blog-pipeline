@@ -36,7 +36,7 @@ Success criteria:
 - [x] docs/machine-setup.md verify command passes on this machine
 
 ## M1 — Ingest
-- [ ] M1.1 `blog new`, `blog status`, `blog approve` (with fingerprint), `blog reset`, post.yaml model · Owner: Claude Code · Status: todo · Evidence:
+- [x] M1.1 `blog new`, `blog status`, `blog approve` (with fingerprint), `blog reset`, post.yaml model · Owner: Claude Code · Status: done · Evidence: `src/blogpipe/post.py`, `src/blogpipe/cli.py`, `tests/test_post.py` (15 tests, all passing); `uv run pytest -q --cov=blogpipe --cov-fail-under=80` → 90.68% coverage; `uv run ruff check .` → All checks passed!
 - [ ] M1.2 Extractors (URL/PDF/MD), ingest, sources.md registry · Owner: Claude Code · Status: todo · Evidence:
 - [ ] M1.3 Offline tests with fixtures · Owner: Claude Code · Status: todo · Evidence:
 - [ ] M1.4 Provide G1 inputs + intake.md · Owner: Me · Status: todo · Evidence:
